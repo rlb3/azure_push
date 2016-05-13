@@ -7,8 +7,8 @@ defmodule AzurePush.Message do
     %AzurePush.Message{namespace: namespace, access_key: access_key, hub: hub}
   end
 
-  def send(message, payload, tags \\ [], format \\ "apple") do
-    json_payload = Poison.encode! payload
+  def send(%AzurePush.Message{}=message, payload, tags \\ [], format \\ "apple") do
+    json_payload = Poison.encode!(payload)
     url = url(message.namespace, message.hub)
     content_type = "application/json"
     headers = [
