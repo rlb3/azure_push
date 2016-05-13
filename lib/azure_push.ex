@@ -1,0 +1,2 @@
+defmodule AzurePush do
+end
