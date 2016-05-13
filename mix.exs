@@ -30,4 +30,13 @@ defmodule AzurePush.Mixfile do
     [{:poison, "~> 2.0"},
      {:httpoison, "~> 0.8.0"}]
   end
+
+  defp package do
+    [
+      files: ["lib", "mix.exs", "README", "LICENSE*"],
+      maintainers: ["Robert Boone"],
+      licenses: [],
+      links: %{"GitHub" => "https://github.com/rlb3/azure_push"}
+    ]
+  end
 end

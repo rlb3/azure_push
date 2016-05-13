@@ -1,6 +1,8 @@
-# AzurePush
+# Azure Push Client
 
-**TODO: Add description**
+**Azure push client**
+
+Based on ruby Azure Push gem [link](https://github.com/christian-s/azure-push)
 
 ## Installation
 
@@ -18,3 +20,7 @@ If [available in Hex](https://hex.pm/docs/publish), the package can be installed
           [applications: [:azure_push]]
         end
 
+## Todo
+    - Tests
+    - Tags
+    - gcm
