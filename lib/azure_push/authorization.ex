@@ -1,17 +1,19 @@
 defmodule AzurePush.Authorization do
-  def token(url, key_name, access_key, lifetime \\ 10) do
+  alias AzurePush.Message
+
+  def token(%Message{}=message, url) do
     target_uri = target_uri(url)
-    expires = expires(lifetime)
+    expires = expires(message.sig_lifetime)
     to_sign = to_sign(target_uri, expires)
-    signature = signature(access_key, to_sign)
-    "SharedAccessSignature sr=#{target_uri}&sig=#{signature}&se=#{expires}&skn=#{key_name}"
+    signature = signature(message.access_key, to_sign)
+    "SharedAccessSignature sr=#{target_uri}&sig=#{signature}&se=#{expires}&skn=#{message.key_name}"
   end
 
   defp target_uri(url) do
     url = url
     |> String.downcase
     |> URI.encode_www_form
-    |> (&(Regex.replace(~r/\+/, &1, "%20", global: true))).()
+    |> escape_plus
   end
 
   defp expires(lifetime) do
@@ -26,6 +28,10 @@ defmodule AzurePush.Authorization do
     :crypto.hmac(:sha256, access_key, to_sign)
     |> Base.encode64
     |> URI.encode_www_form
-    |> (&(Regex.replace(~r/\+/, &1, "%20", global: true))).()
+    |> escape_plus
+  end
+
+  defp escape_plus(string) do
+    Regex.replace(~r/\+/, string, "%20", global: true)
   end
 end

@@ -13,7 +13,7 @@ defmodule AzurePush.Message do
     content_type = "application/json"
     headers = [
       {"Content-Type", content_type},
-      {"Authorization", Auth.token(url, message.key_name, message.access_key, message.sig_lifetime)},
+      {"Authorization", Auth.token(message, url)},
       {"ServiceBusNotification-Format", format}
     ]
     request(url, json_payload, headers)
